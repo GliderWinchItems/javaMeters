@@ -1,5 +1,5 @@
 clone_a_meter.txt
-12/28/2019
+12/29/2019
 
 Example: Make a HV2 HV3 meter
 
@@ -7,18 +7,19 @@ Example: Make a HV2 HV3 meter
 
 If repo not already cloned--
   cd ~/GliderWinchItems
-  git clone https://github.com/javaMeters.git
+  git clone https://github.com/GliderWinchItems/javaMeters.git
 
-If already cloned make it is up-to-date--
+If already cloned make sure it is up-to-date--
   cd ~/GliderWinchItems/javaMeters
   git pull
 
-cd GliderWinchItems/javaMeters
-mkdir Meter_HV23
+Make the directory--
+  cd GliderWinchItems/javaMeters
+  mkdir Meter_HV23
 
 2. Copy existing meter
 
-Check path--
+Check path cd'd to is OK--
 deh@ASUS:~/GliderWinchItems/javaMeters/Meter_HV23$ ls ../*RPM
 build  build.xml  dist  lib  LICENSE.md  manifest.mf  nbproject  README.md  src
 
@@ -26,11 +27,11 @@ Looks good, so copy:
 
 cp -rua ../*RPM/* .
 
-3. Start netbeans and update 
+3. Start netbeans and update cloned meter
 
 a. Open project in (note: name will be same as copied project)
 b. Right click and 'rename'
-c. Click on source packages (note: will be Meter RPM but this OK)
+c. Click on source packages (note: it will say Meter RPM but this OK)
 d. Double click open Meter_RPM.java source
 e. Change Title that appears at top of meter--
     line 58:
@@ -40,9 +41,10 @@ New: new Stackoverflow(25, "HIGH VOLTS: 2 AND 3");
 f. Change CAN msg IDs--
    Lines 76 & 80
    Since contactor sends two floats with the msg put the
-   same ID twice.
+   same ID on both lines 76 & 80.
    	0x50600000
-	CAN ID can be looked up in:
+
+	Note: CAN ID can be looked up in:
    GliderWinchCommons/embed/svn_common/trunk/db/CANID_INSERT.sql
 
 	Update comments on these lines to identify hex code
@@ -55,14 +57,15 @@ Lines 63 & 64
 
 
 h. Change payload decoding--
-Lines 77 & 81 
-Meter_RPM used one int offset in payload, HV2,3 uses to floats
 
-Old: eng[1] = can1.get_1int16(0);   //  Extract bytes from CAN payload
-New: eng[1] = can1.get_float(0);   //  Extract first float from CAN payload
+Lines 77 & 81 
+Meter_RPM used one int offset in payload, HV2,3 uses two floats.
+
+Old: eng[1] = can1.get_1int16(0); // Extract bytes from CAN payload
+New: eng[1] = can1.get_float(0);  // Extract first float from CAN payload
 
 Similarly,
-New:   eng[0] = can1.get_float(4);   //  Extract second float from CAN payload
+New: eng[0] = can1.get_float(4); // Extract second float from CAN payload
 
 i. Fix scale and offset
 
@@ -78,9 +81,9 @@ New: new DialTextAnnotation("HIGH V");
 
 b. Line 111: Scale of outer/large pointer
 
-Args: (start scale, end scale, start degress, end deg, scale steps, ?)
-Old: new StandardDialScale(-12000D, 12000D, -110D, -320D, 2000D, 4);
-New: new StandardDialScale(-0D, 400D, -110D, -320D, 50D, 4);
+Args: (start scale, end scale, start degress, end deg, scale steps, sub-steps?)
+Old: new StandardDialScale(-12000D, 12000D, -110D, -320D, 2000D, 5);
+New: new StandardDialScale(-0D, 400D, -110D, -320D, 50D, 5);
 
 c. Line 119: Scale of inner/small pointer
 
@@ -121,5 +124,21 @@ d. Test command line starting of Meter_HV23
 
  cd ~/GliderWinchItems/javaMeters/Meter_HV23/dist
  java -jar Meter_HV23.jar
+
+6. Update repo
+
+a. Add new meter directory to javaMeters repo--
+
+cd ~/GliderWinchItems/javaMeters
+git add Meter_HV23
+
+b. Commit 
+
+git commit -m 'Added Meter_HV23' -a
+
+c. Push
+
+git push
+
 
 
