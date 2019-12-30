@@ -178,7 +178,7 @@ public class Canmsg2 {
    public float get_float(int offset){
        if ( pb[5] < (offset+4) ){val = -1; return 0;} // Return not enough payload
        //return (((((((pb[(offset+9)]) << 8) | (pb[(offset+8)] & 0xff)) << 8) | (pb[(offset+7)] & 0xff)) << 8) | (pb[(offset+6)] & 0xff));
-       float foo = Float.intBitsToFloat((((((((pb[(offset+6)]) << 8) | (pb[(offset+7)] & 0xff)) << 8) | (pb[(offset+8)] & 0xff)) << 8) | (pb[(offset+9)] & 0xff)) );
+       float foo = Float.intBitsToFloat((((((((pb[(offset+9)]) << 8) | (pb[(offset+8)] & 0xff)) << 8) | (pb[(offset+7)] & 0xff)) << 8) | (pb[(offset+6)] & 0xff)) );
        return foo;
    }
    /**

@@ -49,7 +49,7 @@ f. Change CAN msg IDs--
 
 	Update comments on these lines to identify hex code
 
-g. Change varible from int to float
+g. Change variable from int to float
 
 Lines 63 & 64
   float[] eng;
@@ -70,7 +70,13 @@ New: eng[0] = can1.get_float(4); // Extract second float from CAN payload
 i. Fix scale and offset
 
 Lines 78 & 82.
-Comment out. No need to scale or add offset
+These lines convert float to double used by meter.
+Remove offset:
+Old: engd[1] = (float)(eng[1]) - 20000;
+New: engd[1] = (float)(eng[1]);
+
+NOTE: eng[0] = Big meter needle/outside scale
+      eng[1] = Small, red, needel/inside scale
 
 4. Meter: Stackoverflow.java
 

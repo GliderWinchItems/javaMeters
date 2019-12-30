@@ -75,15 +75,15 @@ public class Meter_RPM {
            }
            if (can1.id == 0x50600000){ /* Contactor sends HV2, HV3 */
              eng[1] = can1.get_float(0);   //  Extract first float from CAN payload
-//             engd[1] = (float)(eng[1]) - 20000; // Convert Manifold pressure
+             engd[1] = (float)(eng[1]);
            }
            if (can1.id == 0x50600000){ /* Contactor sends HV2, HV3 */
              eng[0] = can1.get_float(4);   //  Extract second float from CAN payload
-//             engd[0] = (float)(eng[0]) - 20000; // Convert rpm
+             engd[0] = (float)(eng[0]); 
            }
             /* Scale readings for display purposes. */
-            final double scaled0 = engd[1]; // RPM
-            final double scaled1 = engd[0];// * rpmscale;       // Manifold: Inches of mercury
+            final double scaled0 = engd[1];
+            final double scaled1 = engd[0];
 //  System.out.format("%f  %f\n",engd[1],engd[0]);
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
