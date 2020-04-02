@@ -1,0 +1,15 @@
+Meters_Torque.readme
+04/01/2020
+
+Display: 
+
+Outer needle--
+0x46600000 : [0]-[1] little endian : Commanded torque
+  offset = 30000;
+  display: Newton-meters
+
+Inner needle--
+0x47600000 : [0]-[1] little endian : Actual (reported) speed
+  offset = 20000;
+  display: rpm
+

@@ -44,7 +44,7 @@ public class Stackoverflow {
      */
     public Stackoverflow(int valinit, String title) {
     //frame.setPreferredSize(new Dimension(300, 300));
-    frame.add(buildDialPlot(0, 30000, 5000));
+    frame.add(buildDialPlot(0, 300, 5000));
     frame.pack();
     frame.setLocationRelativeTo(null);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,7 +85,7 @@ public class Stackoverflow {
     plot.setDialFrame(new StandardDialFrame());
     
     
-    DialTextAnnotation dialtextannotation = new DialTextAnnotation("Torque");
+    DialTextAnnotation dialtextannotation = new DialTextAnnotation("Torque/speed");
                         dialtextannotation.setFont(new Font("Dialog", 1, 12));
                         dialtextannotation.setRadius(0.69999999999999996D);
                         plot.addLayer(dialtextannotation);
@@ -108,7 +108,7 @@ public class Stackoverflow {
     // needle uses constrained data set
     plot.addLayer(new DialPointer.Pointer(0));
 
-    StandardDialScale scale = new StandardDialScale(-30000d, 30000, -110, -320, majorTickGap, 4);
+    StandardDialScale scale = new StandardDialScale(-150d, 150, -110, -320, 50D, 4);
         scale.setTickRadius(0.88);
         scale.setTickLabelOffset(0.20);
         scale.setTickLabelFormatter(new DecimalFormat ("####"));
@@ -116,7 +116,7 @@ public class Stackoverflow {
         
         plot.addScale(0, scale);
     
-    StandardDialScale standarddialscale1 = new StandardDialScale(-30000D, 30000D, -110D, -320D, 5000D, 4);
+    StandardDialScale standarddialscale1 = new StandardDialScale(-6000D, 6000D, -110D, -320D, 1000D, 4);
                         standarddialscale1.setTickRadius(0.5D);
                         standarddialscale1.setTickLabelOffset(0.14999999999999999D);
                         standarddialscale1.setTickLabelFont(new Font("Dialog", 0, 10));
@@ -127,7 +127,7 @@ public class Stackoverflow {
                         plot.mapDatasetToScale(1, 1);
                         
     JFreeChart jfreechart = new JFreeChart(plot);
-                        jfreechart.setTitle("TORQUE: CMD and REPORT");
+                        jfreechart.setTitle("CMD TORQUE:ACTUAL SPEED");
                         ChartPanel chartpanel = new ChartPanel(jfreechart);
                         chartpanel.setPreferredSize(new Dimension(400, 400));
                         

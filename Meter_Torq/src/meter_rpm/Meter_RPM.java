@@ -73,14 +73,16 @@ public class Meter_RPM {
                 System.out.format("Input conversion error: %d\n", ret); // No show the error code
                 continue;
            }
+           // Torque commanded
            if (can1.id == 0x46600000){ /* CANID_DMOC_CMD_TORQ Gevcur sends */
-             eng[1] = can1.get_1int16(0);   //  Extract bytes from CAN payload
-             engd[1] = ((float)eng[1] - 30000.0);// * (100.0/30000); // 
+             eng[1] = can1.get_1int16LE(0);   // Little Endian: Extract two bytes
+             engd[1] = ((float)eng[1] - 30000.0) * 0.1; // Apply offset; scale Nm
   
             }
+           // Speed reported/actual
            if (can1.id == 0x47400000){ /* 0x23A CANID_DMOC_ACTUALTORQ:I16,   DMOC: Actual Torque: payload-30000 */
-             eng[0] = can1.get_1int16(0);   //  Extract bytes from CAN payload
-             engd[0] = ((float)eng[0] - 30000);// * (100.0/30000); //
+             eng[0] = can1.get_1int16LE(0);   // Little Endian: Extract two bytes
+             engd[0] = ((float)eng[0] - 20000);
              
 //for (int i = 0; i < 6; i++) System.out.format("%02x ",can1.pb[i+6]);
 //  System.out.format(" %08x %d %8.0f\n",eng[0],eng[0],engd[0]);
