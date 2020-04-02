@@ -1,0 +1,150 @@
+clone_a_meter.txt
+12/29/2019
+
+Example: Make a HV2 HV3 meter
+
+1. New directory in javaMeters repo
+
+If repo not already cloned--
+  cd ~/GliderWinchItems
+  git clone https://github.com/GliderWinchItems/javaMeters.git
+
+If already cloned make sure it is up-to-date--
+  cd ~/GliderWinchItems/javaMeters
+  git pull
+
+Make the directory--
+  cd GliderWinchItems/javaMeters
+  mkdir Meter_HV23
+
+2. Copy existing meter
+
+Check path cd'd to is OK--
+deh@ASUS:~/GliderWinchItems/javaMeters/Meter_HV23$ ls ../*RPM
+build  build.xml  dist  lib  LICENSE.md  manifest.mf  nbproject  README.md  src
+
+Looks good, so copy:
+
+cp -rua ../*RPM/* .
+
+3. Start netbeans and update cloned meter
+
+a. Open project in (note: name will be same as copied project)
+b. Right click and 'rename'
+c. Click on source packages (note: it will say Meter RPM but this OK)
+d. Double click open Meter_RPM.java source
+e. Change Title that appears at top of meter--
+    line 58:
+Old: new Stackoverflow(25, "RPM: CMD and REPORTED");
+New: new Stackoverflow(25, "HIGH VOLTS: 2 AND 3");
+
+f. Change CAN msg IDs--
+   Lines 76 & 80
+   Since contactor sends two floats with the msg put the
+   same ID on both lines 76 & 80.
+   	0x50600000
+
+	Note: CAN ID can be looked up in:
+   GliderWinchCommons/embed/svn_common/trunk/db/CANID_INSERT.sql
+
+	Update comments on these lines to identify hex code
+
+g. Change variable from int to float
+
+Lines 63 & 64
+  float[] eng;
+  eng = new float[2];   
+
+
+h. Change payload decoding--
+
+Lines 77 & 81 
+Meter_RPM used one int offset in payload, HV2,3 uses two floats.
+
+Old: eng[1] = can1.get_1int16(0); // Extract bytes from CAN payload
+New: eng[1] = can1.get_float(0);  // Extract first float from CAN payload
+
+Similarly,
+New: eng[0] = can1.get_float(4); // Extract second float from CAN payload
+
+i. Fix scale and offset
+
+Lines 78 & 82.
+These lines convert float to double used by meter.
+Remove offset:
+Old: engd[1] = (float)(eng[1]) - 20000;
+New: engd[1] = (float)(eng[1]);
+
+NOTE: eng[0] = Big meter needle/outside scale
+      eng[1] = Small, red, needel/inside scale
+
+4. Meter: Stackoverflow.java
+
+a. Line 88: label on box at bottom
+
+Old: new DialTextAnnotation("RPM");
+New: new DialTextAnnotation("HIGH V");
+
+b. Line 111: Scale of outer/large pointer
+
+Args: (start scale, end scale, start degress, end deg, scale steps, sub-steps?)
+Old: new StandardDialScale(-12000D, 12000D, -110D, -320D, 2000D, 5);
+New: new StandardDialScale(-0D, 400D, -110D, -320D, 50D, 5);
+
+c. Line 119: Scale of inner/small pointer
+
+Same as above.
+
+d. Line 130: Title
+
+Old: freechart.setTitle("RPM: CMD and REPORTED");
+New: freechart.setTitle("HIGH VOLTS: HV2 HV3");
+
+5. Testing
+
+a. Setup CAN bus w gateway.
+
+Meter_* have default ip:port--
+  127.0.0.1 32123
+
+Easiest: setup hub-server with 32123
+
+If gateway usb:uart is /dev/ttyUSB0--
+hub-socat_b 32123 /dev/ttyUSB0 2000000
+
+b. Netbeans run (F6)
+
+c. When satisfactory build & save 'jar' file
+
+Run project build in Netbeans:
+  Run | Project build (F11)
+
+This should save the jar file in--
+ GliderWinchItems/javaMeters/Meter_HV23/dist
+
+It should look like this--
+deh@ASUS:~/GliderWinchItems/javaMeters/Meter_HV23/dist$ ls
+lib  Meter_HV23.jar  README.TXT
+
+d. Test command line starting of Meter_HV23
+
+ cd ~/GliderWinchItems/javaMeters/Meter_HV23/dist
+ java -jar Meter_HV23.jar
+
+6. Update repo
+
+a. Add new meter directory to javaMeters repo--
+
+cd ~/GliderWinchItems/javaMeters
+git add Meter_HV23
+
+b. Commit 
+
+git commit -m 'Added Meter_HV23' -a
+
+c. Push
+
+git push
+
+
+
