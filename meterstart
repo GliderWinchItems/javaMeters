@@ -1,0 +1,16 @@
+#!/bin/bash
+#04/08/2020
+#meterstart
+#
+# Start hub-server with default: localhost 32123 (in background)
+# If instance with this IP:port already running command is ignored
+hub-server localhost 32123 &
+#
+# Start Actual speed : Commanded torque meter (in background)
+cd ~/GliderWinchItems/javaMeters/Meter_Torq/dist
+java -jar Meter_Torq.jar &
+#
+# Start Battery current : Battery voltage (in background)
+cd ~/GliderWinchItems/javaMeters/Meter_HV1CUR/dist
+java -jar Meter_HV1CUR.jar &
+

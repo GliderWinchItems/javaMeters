@@ -85,7 +85,7 @@ public class Stackoverflow {
     plot.setDialFrame(new StandardDialFrame());
     
     
-    DialTextAnnotation dialtextannotation = new DialTextAnnotation("Torque/speed");
+    DialTextAnnotation dialtextannotation = new DialTextAnnotation("RPM");
                         dialtextannotation.setFont(new Font("Dialog", 1, 12));
                         dialtextannotation.setRadius(0.69999999999999996D);
                         plot.addLayer(dialtextannotation);
@@ -108,7 +108,7 @@ public class Stackoverflow {
     // needle uses constrained data set
     plot.addLayer(new DialPointer.Pointer(0));
 
-    StandardDialScale scale = new StandardDialScale(-6000d, 6000, -110, -320, 1000D, 4);
+    StandardDialScale scale = new StandardDialScale(-5000d, 5000, -120, -300, 1000D, 4);
         scale.setTickRadius(0.88);
         scale.setTickLabelOffset(0.20);
         scale.setTickLabelFormatter(new DecimalFormat ("####"));
