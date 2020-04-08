@@ -158,8 +158,8 @@ public class Canmsg2 {
        return ((pb[(offset+6)] & 0xff) << 8) | (pb[(offset+7)] & 0xff);// | (pb[(offset+7)] & 0xff)) << 8) | (pb[(offset+6)] & 0xff));
    }
     public int get_1int16LE(int offset){
-       if ( pb[5] < (offset+2) ){val = -1; return 0;} // Return not enough payload
-       return ((pb[(offset+7)] & 0xff) << 8) | (pb[(offset+6)] & 0xff);// | (pb[(offset+7)] & 0xff)) << 8) | (pb[(offset+6)] & 0xff));
+        if (pb[5] < (offset+2) ) return 0;
+       return (short)(((pb[(offset+6)]) << 8) | (pb[(offset+7)] & 0xff));
    }
 
     /**

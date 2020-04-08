@@ -74,24 +74,24 @@ public class Meter_RPM {
                 continue;
            }
            // Torque commanded
-           if (can1.id == 0x46600000){ /* CANID_DMOC_CMD_TORQ Gevcur sends */
-             eng[1] = can1.get_1int16LE(0);   // Little Endian: Extract two bytes
-             engd[1] = ((float)eng[1] - 30000.0) * 0.1; // Apply offset; scale Nm
+           if (can1.id == 0x46600000){ /* CANID_DMOC_CMD_TORQ Gevcur sends command */
+             eng[0] = can1.get_1int16LE(0);   // Little Endian: Extract two bytes
+             engd[0] = ((float)eng[0] - 30000.0) * 0.1; // Apply offset; scale Nm
+//for (int i = 0; i < 6; i++) System.out.format("%02x ",can1.pb[i+6]);
+//  System.out.format(" %08x %d %8.0f\n",eng[0],eng[0],engd[0]);
   
             }
            // Speed reported/actual
-           if (can1.id == 0x47400000){ /* 0x23A CANID_DMOC_ACTUALTORQ:I16,   DMOC: Actual Torque: payload-30000 */
-             eng[0] = can1.get_1int16LE(0);   // Little Endian: Extract two bytes
-             engd[0] = ((float)eng[0] - 20000);
+           if (can1.id == 0x47600000){ // DMOC sends actual speed
+             eng[1] = can1.get_1int16LE(0);   // Little Endian: Extract two bytes
+             engd[1] = ((float)eng[1] - 20000);
              
-//for (int i = 0; i < 6; i++) System.out.format("%02x ",can1.pb[i+6]);
-//  System.out.format(" %08x %d %8.0f\n",eng[0],eng[0],engd[0]);
   
 
            }
             /* Scale readings for display purposes. */
-            final double scaled0 = engd[1];// Torque
-            final double scaled1 = engd[0];// Torque
+            final double scaled0 = engd[0];// Torque
+            final double scaled1 = engd[1];// Speed
   //System.out.format("%8.0f  %8.0f\n",engd[1],engd[0]);
             SwingUtilities.invokeLater(new Runnable() {
                 @Override

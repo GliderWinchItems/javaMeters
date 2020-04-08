@@ -108,7 +108,7 @@ public class Stackoverflow {
     // needle uses constrained data set
     plot.addLayer(new DialPointer.Pointer(0));
 
-    StandardDialScale scale = new StandardDialScale(-150d, 150, -110, -320, 50D, 4);
+    StandardDialScale scale = new StandardDialScale(-6000d, 6000, -110, -320, 1000D, 4);
         scale.setTickRadius(0.88);
         scale.setTickLabelOffset(0.20);
         scale.setTickLabelFormatter(new DecimalFormat ("####"));
@@ -116,7 +116,7 @@ public class Stackoverflow {
         
         plot.addScale(0, scale);
     
-    StandardDialScale standarddialscale1 = new StandardDialScale(-6000D, 6000D, -110D, -320D, 1000D, 4);
+    StandardDialScale standarddialscale1 = new StandardDialScale(-300D, 300D, -110D, -320D, 100D, 4);
                         standarddialscale1.setTickRadius(0.5D);
                         standarddialscale1.setTickLabelOffset(0.14999999999999999D);
                         standarddialscale1.setTickLabelFont(new Font("Dialog", 0, 10));
@@ -127,9 +127,9 @@ public class Stackoverflow {
                         plot.mapDatasetToScale(1, 1);
                         
     JFreeChart jfreechart = new JFreeChart(plot);
-                        jfreechart.setTitle("CMD TORQUE:ACTUAL SPEED");
+                        jfreechart.setTitle("ACTUAL SPEED:CMD TORQUE");
                         ChartPanel chartpanel = new ChartPanel(jfreechart);
-                        chartpanel.setPreferredSize(new Dimension(400, 400));
+                        chartpanel.setPreferredSize(new Dimension(300, 300));
                         
     
     return chartpanel;

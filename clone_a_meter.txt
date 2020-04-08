@@ -100,6 +100,10 @@ d. Line 130: Title
 Old: freechart.setTitle("RPM: CMD and REPORTED");
 New: freechart.setTitle("HIGH VOLTS: HV2 HV3");
 
+e. Initial Size of meter
+
+Line 132 (e.g. 400,400)
+
 5. Testing
 
 a. Setup CAN bus w gateway.
