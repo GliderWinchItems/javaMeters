@@ -85,7 +85,7 @@ public class Stackoverflow {
     plot.setDialFrame(new StandardDialFrame());
     
     
-    DialTextAnnotation dialtextannotation = new DialTextAnnotation("HIGH V");
+    DialTextAnnotation dialtextannotation = new DialTextAnnotation("DMOC+");
                         dialtextannotation.setFont(new Font("Dialog", 1, 12));
                         dialtextannotation.setRadius(0.69999999999999996D);
                         plot.addLayer(dialtextannotation);
@@ -127,9 +127,9 @@ public class Stackoverflow {
                         plot.mapDatasetToScale(1, 1);
                         
     JFreeChart jfreechart = new JFreeChart(plot);
-                        jfreechart.setTitle("HIGH VOLTS: HV2 HV3");
+                        jfreechart.setTitle( "DMOC+ : DMOC-" );
                         ChartPanel chartpanel = new ChartPanel(jfreechart);
-                        chartpanel.setPreferredSize(new Dimension(400, 400));
+                        chartpanel.setPreferredSize(new Dimension(300, 300));
                         
     
     return chartpanel;

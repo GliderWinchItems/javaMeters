@@ -82,8 +82,8 @@ public class Meter_RPM {
              engd[0] = (float)(eng[0]); 
            }
             /* Scale readings for display purposes. */
-            final double scaled0 = engd[1];
-            final double scaled1 = engd[0];
+            final double scaled0 = engd[0];
+            final double scaled1 = engd[1];
 //  System.out.format("%f  %f\n",engd[1],engd[0]);
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
