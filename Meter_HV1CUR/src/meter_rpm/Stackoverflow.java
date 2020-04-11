@@ -49,7 +49,7 @@ public class Stackoverflow {
     frame.setLocationRelativeTo(null);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setTitle(title);
-
+frame.setLocation(0, 0);
 
     SwingUtilities.invokeLater(new Runnable() {
       @Override
