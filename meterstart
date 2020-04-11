@@ -14,3 +14,6 @@ java -jar Meter_Torq.jar &
 cd ~/GliderWinchItems/javaMeters/Meter_HV1CUR/dist
 java -jar Meter_HV1CUR.jar &
 
+cd ~/GliderWinchItems/javaMeters/Meter_HV23/dist
+java -jar Meter_HV23.jar &
+
