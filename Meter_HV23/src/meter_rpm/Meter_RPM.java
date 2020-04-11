@@ -55,7 +55,7 @@ public class Meter_RPM {
                 new InputStreamReader(socket.getInputStream()));
           
           final Stackoverflow so;
-                so = new Stackoverflow(25, "HIGH VOLTS: 2 & 3");
+                so = new Stackoverflow(25, "DMOC+:DMOC- VOLTS");
           
           Canmsg2 can1; 
             can1 = new Canmsg2();    // Received CAN message
