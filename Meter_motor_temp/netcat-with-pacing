@@ -1,0 +1,6 @@
+# Read a file and with pause time between reads
+# $1 = IP
+# $2 = port
+# $3 = file path/name to be read
+# $4 = pause time in secs, e.g. 0.500 for 1/2 sec
+while read -r line ; do echo "$line"; sleep $4; done < $3 | nc $1 $2
